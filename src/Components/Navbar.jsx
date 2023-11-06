@@ -47,7 +47,7 @@ const Navbar = () => {
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
       <div className="container">
         <Link to="/" className="navbar-brand">
-          <img src="../public/logo.png" alt="Logo" width="250" height="50" />
+          <img src="/dist/logo.png" alt="Logo" width="250" height="50" />
         </Link>
         {isAuthenticated && (
           <Link to="/createStory" className="nav-link">
