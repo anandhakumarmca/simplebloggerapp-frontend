@@ -23,7 +23,7 @@ function App() {
         <Route path="/" element={<BlogHome />} />
         <Route path="/createStory" element={<CreateStory />} />
         <Route path="/story/:storyId" element={<ViewStory />} />
-        <Route path="/EditStory/:id" element={<EditStory />} />
+        <Route path="/EditStory/:storyId" element={<EditStory />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/activate/:activationToken" element={<UserActivation />} />

@@ -4,7 +4,7 @@ import axios from "axios";
 import { useParams, Navigate } from "react-router-dom";
 
 export default function EditStory() {
-  const { id } = useParams();
+  const { storyId } = useParams();
   const [title, setTitle] = useState("");
   const [summary, setSummary] = useState("");
   const [content, setContent] = useState("");
@@ -15,11 +15,11 @@ export default function EditStory() {
     async function fetchStoryToEdit() {
       try {
         const response = await axios.get(
-          `https://simplebloggerapp.onrender.com/api/story/${id}`
+          `https://simplebloggerapp.onrender.com/api/story/${storyId}`
         );
 
         if (response.status === 200) {
-          const story = response.data;
+          const story = response.data.data;
           setTitle(story.title);
           setSummary(story.summary);
           setContent(story.content);
@@ -33,7 +33,7 @@ export default function EditStory() {
     }
 
     fetchStoryToEdit();
-  }, [id]);
+  }, [storyId]);
 
   async function updateStory(ev) {
     ev.preventDefault();
@@ -56,14 +56,14 @@ export default function EditStory() {
 
     try {
       const response = await axios.put(
-        `https://simplebloggerapp.onrender.com/api/story/${id}`,
-        storyData,
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${authToken}`,
-          },
-        }
+        `https://simplebloggerapp.onrender.com/api/story/${storyId}`,
+        storyData
+        // {
+        //   headers: {
+        //     "Content-Type": "application/json",
+        //     Authorization: `Bearer ${authToken}`,
+        //   },
+        // }
       );
 
       if (response.status === 200) {
@@ -75,7 +75,12 @@ export default function EditStory() {
   }
 
   if (redirect) {
-    return <Navigate to="/Home" />;
+    return (
+      <Navigate
+        to="/
+    "
+      />
+    );
   }
 
   return (

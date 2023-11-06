@@ -31,11 +31,27 @@ export default function ViewStory() {
 
   const handleDeleteStory = async () => {
     try {
+      const authToken = localStorage.getItem("authToken");
+
+      if (!authToken) {
+        // Handle the case where the user is not authenticated
+        console.error("User is not authenticated");
+        window.alert("Login to delete");
+        return;
+      }
+
       const response = await axios.delete(
-        `https://simplebloggerapp.onrender.com/api/story/${storyId}`
+        `https://simplebloggerapp.onrender.com/api/story/${storyId}`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${authToken}`,
+          },
+        }
       );
 
-      if (response.status === 204) {
+      if (response.status === 200) {
+        window.alert("Story deleted successfully");
         // Story deleted successfully, you can redirect the user or show a success message
         navigate("/", { state: { message: "Story deleted successfully" } });
       } else if (response.status === 404) {
@@ -43,11 +59,12 @@ export default function ViewStory() {
         // You can also display an error message to the user.
       } else {
         console.error("An unexpected error occurred during deletion.");
+        navigate("/"); // Handle the error as needed, such as displaying an error message to the user.
         // Handle other status codes as needed.
       }
     } catch (error) {
       console.error("Error deleting the story:", error);
-      // Handle the error as needed, such as displaying an error message to the user.
+      navigate("/"); // Handle the error as needed, such as displaying an error message to the user.
     }
   };
 
