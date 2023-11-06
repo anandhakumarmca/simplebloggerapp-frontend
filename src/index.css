@@ -299,7 +299,7 @@ textarea {
 
 .view-story-card {
   margin: 0 auto;
-  max-width: 600px;
+  max-width: 100%;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
@@ -307,17 +307,9 @@ textarea {
   max-width: 100%;
 }
 
-.go-back-button {
-  margin-top: 15px;
-}
-
 /* Media Query for Responsive Design */
 @media (max-width: 768px) {
   .view-story-card {
     max-width: 100%;
-  }
-
-  .go-back-button {
-    width: 100%;
   }
 }

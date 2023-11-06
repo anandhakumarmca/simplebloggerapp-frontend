@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { Container, Form, Button } from "react-bootstrap";
 import axios from "axios";
 import { useParams, Navigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function EditStory() {
   const { storyId } = useParams();
@@ -14,8 +16,21 @@ export default function EditStory() {
   useEffect(() => {
     async function fetchStoryToEdit() {
       try {
+        const authToken = localStorage.getItem("authToken");
+
+        if (!authToken) {
+          // Handle the case where the user is not authenticated
+          console.error("User is not authenticated");
+          return;
+        }
         const response = await axios.get(
-          `https://simplebloggerapp.onrender.com/api/story/${storyId}`
+          `https://simplebloggerapp.onrender.com/api/story/${storyId}`,
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${authToken}`,
+            },
+          }
         );
 
         if (response.status === 200) {
@@ -57,30 +72,42 @@ export default function EditStory() {
     try {
       const response = await axios.put(
         `https://simplebloggerapp.onrender.com/api/story/${storyId}`,
-        storyData
-        // {
-        //   headers: {
-        //     "Content-Type": "application/json",
-        //     Authorization: `Bearer ${authToken}`,
-        //   },
-        // }
+        storyData,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${authToken}`,
+          },
+        }
       );
 
       if (response.status === 200) {
+        toast.success("Story updated successfully", {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: true,
+        });
+
         setRedirect(true);
+      } else {
+        toast.error("Failed to update the story", {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: true,
+        });
       }
     } catch (error) {
       console.error("Error updating the story:", error);
+      toast.error("An error occurred while updating the story", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: true,
+      });
     }
   }
 
   if (redirect) {
-    return (
-      <Navigate
-        to="/
-    "
-      />
-    );
+    return <Navigate to="/" />;
   }
 
   return (
@@ -112,6 +139,7 @@ export default function EditStory() {
             value={content}
             onChange={(ev) => setContent(ev.target.value)}
             required
+            style={{ height: "200px" }}
           />
         </Form.Group>
         <Form.Group className="mb-3">

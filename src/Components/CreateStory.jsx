@@ -1,14 +1,15 @@
 import React, { useState } from "react";
-import { Navigate } from "react-router-dom";
 import { Container, Form, Button } from "react-bootstrap";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { toast, ToastContainer } from "react-toastify";
 
 export default function CreateStory() {
   const [title, setTitle] = useState("");
   const [summary, setSummary] = useState("");
   const [content, setContent] = useState("");
   const [image, setImage] = useState("");
-  const [redirect, setRedirect] = useState(false);
+  const navigate = useNavigate();
 
   async function createNewStory(ev) {
     ev.preventDefault();
@@ -43,15 +44,26 @@ export default function CreateStory() {
       );
 
       if (response.status === 201) {
-        setRedirect(true);
+        // Show success toast
+        toast.success("Story added successfully", {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: true,
+        });
+
+        // Redirect to the home page
+        navigate("/");
       }
     } catch (error) {
       console.error("Error creating the story:", error);
-    }
-  }
 
-  if (redirect) {
-    return <Navigate to="/" />;
+      // Show error toast
+      toast.error("Error creating the story", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: true,
+      });
+    }
   }
 
   return (
@@ -83,6 +95,7 @@ export default function CreateStory() {
             value={content}
             onChange={(ev) => setContent(ev.target.value)}
             required
+            style={{ height: "200px" }}
           />
         </Form.Group>
         <Form.Group className="mb-3">
@@ -97,6 +110,7 @@ export default function CreateStory() {
           Create Story
         </Button>
       </Form>
+      <ToastContainer />
     </Container>
   );
 }
