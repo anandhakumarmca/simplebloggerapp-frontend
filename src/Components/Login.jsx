@@ -160,6 +160,11 @@ export default function Login() {
                     "Login"
                   )}
                 </button>
+                <p className="mt-3">
+                  Demo info: Email: learnwithanandh@gmail.com |
+                  Password: Anandh1234
+                </p>
+
                 <div className="mt-2">
                   <Link to="/forgotPassword" className="forgot-password-link">
                     Forgot Password
