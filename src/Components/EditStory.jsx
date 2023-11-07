@@ -107,7 +107,7 @@ export default function EditStory() {
   }
 
   if (redirect) {
-    return <Navigate to="/" />;
+    return <Navigate to="/home" />;
   }
 
   return (
