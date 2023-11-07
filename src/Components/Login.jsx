@@ -45,7 +45,7 @@ export default function Login() {
         theme: "colored",
       });
 
-      navigate("/", { state: { message: "Hi" } });
+      navigate("/home", { state: { message: "Hi" } });
     } catch (err) {
       setLoading(false);
       setError("Email or password is not valid");

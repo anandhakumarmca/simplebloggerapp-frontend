@@ -1,58 +1,45 @@
 import React, { useState, useEffect } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Oval } from "react-loader-spinner";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 export default function Info() {
-  const location = useLocation();
-  const { state } = location;
-  const [authToken, setAuthToken] = useState(
-    localStorage.getItem("Auth Token") || null
-  );
-  const [userName, setUserName] = useState(
-    localStorage.getItem("userName") || null
-  );
-  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
-
-  // Assign a default value to state.message
-  const defaultMessage = "Welcome Back";
-  const message = state?.message || defaultMessage; // Use optional chaining to check for state
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const delay = 5000; // 2 seconds delay
+    const delay = 3000; // 3 seconds delay
     const timeout = setTimeout(() => {
-      if (authToken) {
-        setLoading(false);
-      } else {
-        setLoading(false);
-        toast.info("Redirecting to the login page.", {
-          position: "top-right",
-          autoClose: 1500,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "colored",
-        });
-        navigate("/login");
-      }
+      setLoading(false);
     }, delay);
 
     return () => clearTimeout(timeout);
-  }, [authToken, navigate]);
+  }, []);
+
+  useEffect(() => {
+    const delay = 7000; // 7 seconds delay
+    const timeout = setTimeout(() => {
+      navigate("/home");
+    }, delay);
+
+    return () => clearTimeout(timeout);
+  }, [navigate]);
 
   return (
     <>
       <div className="container min-vh-100 d-flex align-items-center justify-content-center py-5 py-md-0">
         <div className="col-md-7 bg-light">
           <div className="text-center p-5">
-            <h1 className="text-main fw-bolder">Information</h1>
-            <h6 className="mt-2 mb-3">
-              Info Details
-            </h6>
+            <img src="/applogo.png" alt="Your Logo" width="350" height="350" />
+            <h1 className="text-main fw-bolder">
+              Welcome to Aspire Kaleidoscope!
+            </h1>
+            <p>
+              This application is designed for creating and sharing stories in a
+              blog format, as well as offering various additional features to
+              enhance your writing experience.
+            </p>
             {loading ? (
               <div className="d-flex justify-content-center">
                 <Oval
@@ -65,12 +52,10 @@ export default function Info() {
                   strokeWidthSecondary={2}
                 />
               </div>
-            ) : authToken ? (
-              <p className="text-success" style={{ fontSize: "24px" }}>
-                {message} {userName}!
-              </p>
             ) : (
-              <Link to="/login">Login</Link>
+              <p className="text-success" style={{ fontSize: "24px" }}>
+                Aspire More!
+              </p>
             )}
           </div>
         </div>

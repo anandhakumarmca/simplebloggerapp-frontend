@@ -84,7 +84,7 @@ export default function ViewStory() {
         });
 
         // Redirect to the home page
-        navigate("/", { state: { message: "Story deleted successfully" } });
+        navigate("/home", { state: { message: "Story deleted successfully" } });
       } else if (response.status === 404) {
         console.error("Story not found on the server");
       } else {
@@ -95,11 +95,11 @@ export default function ViewStory() {
           autoClose: 3000, // Close after 3 seconds
           hideProgressBar: true,
         });
-        navigate("/");
+        navigate("/home");
       }
     } catch (error) {
       console.error("Error deleting the story:", error);
-      navigate("/");
+      navigate("/home");
     }
   };
 
@@ -119,7 +119,7 @@ export default function ViewStory() {
           <Card.Body>
             <div className="d-flex justify-content-end align-items-center mb-3">
               <Link
-                to={`/EditStory/${storyId}`}
+                to={`/editStory/${storyId}`}
                 className="btn btn-primary me-3"
               >
                 <FiEdit /> Edit

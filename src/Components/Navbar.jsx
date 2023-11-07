@@ -24,11 +24,12 @@ const Navbar = () => {
     localStorage.removeItem("userName");
 
     // Redirect to the login page
-    navigate("/");
+    navigate("/home");
   };
 
   // List of paths where the Navbar should not be displayed
   const authPaths = [
+    "/",
     "/login",
     "/register",
     "/forgotPassword",
@@ -46,7 +47,7 @@ const Navbar = () => {
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
       <div className="container">
-        <Link to="/" className="navbar-brand">
+        <Link to="/home" className="navbar-brand">
           <img src="/logo.png" alt="Logo" width="250" height="50" />
         </Link>
         {isAuthenticated && (
