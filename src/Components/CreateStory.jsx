@@ -52,7 +52,7 @@ export default function CreateStory() {
         });
 
         // Redirect to the home page
-        navigate("/");
+        navigate("/home");
       }
     } catch (error) {
       console.error("Error creating the story:", error);
